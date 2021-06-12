@@ -48,7 +48,7 @@ public class CustomerController {
 	public List<Customer> findByMailSchedule() {
 		log.info("find customer details in the database.");
 		
-		return null;
+		return repo.findAllOrderByEmailDateAsc();
 		
 		
  	}
