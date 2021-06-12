@@ -22,8 +22,15 @@ public class DomainService implements SaveService {
 	public List<Customer> save(Customer cust) {
 		// TODO Auto-generated method stub
 		
-			 
-		return null;
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			LocalDate date1 = LocalDate.parse(cust.getStartDate());
+			LocalDate date2 = date1.plusMonths(12).minusDays(2);
+			Customer cust1=new Customer(cust);
+			cust1.setEmailDate(date2.toString());				
+		repo.save(cust1);
+     	final List<Customer> customers = new ArrayList<>();
+		repo.findAll().forEach(customer -> customers.add(customer));
+		return customers;
 	}
 	
 

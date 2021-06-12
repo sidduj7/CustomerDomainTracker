@@ -22,8 +22,22 @@ public class Pdomainervice implements   SaveService  {
 	@Override
 	public List<Customer> save(Customer cust) {
 		// TODO Auto-generated method stub
-		 
-		return null;
+		if( Datevalidator.isValidDate("yyyy-MM-dd", cust.getStartDate(), Locale.ENGLISH)==false ){
+			return null;
+		}
+		Customer cust1=new Customer(cust);
+		Customer cust2=new Customer(cust);
+ 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		LocalDate date1 = LocalDate.parse(cust.getStartDate());
+		LocalDate date2 = date1.plusMonths(12).minusDays(9);
+ 		LocalDate date3 = date1.plusMonths(12).minusDays(2);
+		cust1.setEmailDate(date2.toString());
+  		cust2.setEmailDate(date3.toString());
+  		List<Customer> list=Arrays.asList(cust1,cust2);
+		repo.saveAll(list);
+		final List<Customer> customers = new ArrayList<>();
+		repo.findAll().forEach(customer -> customers.add(customer));
+		return customers;
 	}
 
 }
